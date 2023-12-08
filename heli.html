@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="userApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Management</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-controller="UserController">
+            <h2>User Management</h2>
+            <ul>
+                <li ng-repeat="user in users">
+                    {{ user.name }} - {{ user.email }}
+                </li>
+            </ul>
+            <form ng-submit="addUser()">
+                <label for="name">Name:</label>
+                <input
+                    type="text"
+                    id="name"
+                    ng-model="newUser.name"
+                    required
+                >
+                <label for="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    ng-model="newUser.email"
+                    required
+                >
+                <button type="submit">Add User</button>
+            </form>
+        </div>
+        <script>
+    var app = angular.module('userApp', []);
+
+    app.controller('UserController', function($scope) {
+        $scope.users = [
+            { name: 'John Doe', email: 'john@example.com' },
+            { name: 'Jane Doe', email: 'jane@example.com' }
+        ];
+
+        $scope.newUser = {};
+
+        $scope.addUser = function() {
+            $scope.users.push({
+                name: $scope.newUser.name,
+                email: $scope.newUser.email
+            });
+
+            $scope.newUser = {}; 
+        };
+    });
+        </script>
+    </body>
+</html>
